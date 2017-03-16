@@ -111,7 +111,7 @@ namespace NUnit.Framework
         {
             Type sourceType = SourceType ?? typeInfo.Type;
 
-            foreach (TestFixtureParameters parms in GetParametersFor(sourceType))
+            foreach (ITestFixtureData parms in GetParametersFor(sourceType))
                 yield return _builder.BuildFrom(typeInfo, parms);
         }
 

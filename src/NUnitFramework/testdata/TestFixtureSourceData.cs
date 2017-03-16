@@ -24,6 +24,8 @@
 using System.Collections;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using NUnit.Framework.Interfaces;
+using System;
 
 namespace NUnit.TestData.TestFixtureSourceData
 {
@@ -186,6 +188,67 @@ namespace NUnit.TestData.TestFixtureSourceData
             yield return new TestFixtureParameters(12, 6, 2);
         }
     }
+
+	[TestFixtureSource("MyData")]
+	public class SourceReturnsITestFixtureData : TestFixtureSourceDivideTest
+	{
+		public SourceReturnsITestFixtureData(int x, int y, int z) : base(x, y, z) { }
+
+		class TestFixtureSource : ITestFixtureData
+		{
+			public TestFixtureSource(int x, int y, int z)
+			{
+				Arguments = new object[] { x, y, z };
+			}
+
+			public object[] Arguments
+			{
+				get;
+				private set;
+			}
+
+			public IPropertyBag Properties
+			{
+				get
+				{
+					return new PropertyBag();
+				}
+			}
+
+			public RunState RunState
+			{
+				get
+				{
+					return RunState.Runnable;
+				}
+			}
+
+			public string TestName
+			{
+				get
+				{
+					return "TestFixtureSource_TestName";
+				}
+			}
+
+			public Type[] TypeArgs
+			{
+				get
+				{
+					throw new NotImplementedException();
+				}
+			}
+		}
+
+		static IEnumerable MyData()
+		{
+			yield return new TestFixtureSource(12, 4, 3);
+			yield return new TestFixtureSource(12, 3, 4);
+			yield return new TestFixtureSource(12, 6, 2);
+		}
+	}
+
+
 
     [TestFixture]
     [TestFixtureSource("MyData")]

@@ -43,7 +43,8 @@ namespace NUnit.Framework.Attributes
         [TestCase(typeof(IEnumerableSource))]
         [TestCase(typeof(SourceReturnsObjectArray))]
         [TestCase(typeof(SourceReturnsFixtureParameters))]
-        [TestCase(typeof(ExtraTestFixtureAttributeIsIgnored))]
+		[TestCase(typeof(SourceReturnsITestFixtureData))]
+		[TestCase(typeof(ExtraTestFixtureAttributeIsIgnored))]
         [TestCase(typeof(TestFixtureMayUseMultipleSourceAttributes))]
         public void CheckArgument(Type type)
         {
